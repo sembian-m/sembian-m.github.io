@@ -5,9 +5,9 @@ WEB PERFORMANCE OPTIMIZATION
 
 **Impact of a DOM heavy page on the rendering of next page**
 
-![](media/image01.png)
+![](media/image00.png)
 
-![](media/image06.jpg)
+![](media/image02.jpg)
 ======================
 
 **Introduction**
@@ -20,7 +20,7 @@ We made an interesting observation when we were fire-fighting a site-speed issue
 
 Below timeline diagram is an expression of the observation:
 
-![](media/image05.jpg)
+![](media/image01.jpg)
 
 When we navigate from a heavy page (with a lot of iFrames, video content etc.) to a normal page, the Time To First Render (TTFR) is surprisingly high especially in IE. TTFR calculation is done by subtracting first byte time from the timestamp at the start of the markup, the calculation can be found[ ](https://github.com/sembian-m/sembian-m.github.io/blob/master/WebPerformance/normal.html#L6)[*here*](https://github.com/sembian-m/sembian-m.github.io/blob/master/WebPerformance/normal.html#L6). As described in the above timeline the browser spends more time with unload activities of a heavy page after receiving the first byte and before starting the rendering.
 
@@ -44,7 +44,7 @@ You can notice that the TTFR is more in case of Heavy -&gt; Normal page navigati
 
 Though this is pronounced more in IE than other browsers, Firefox and Chrome also show a minimal degradation in TTFR. W3C says that the ‘Unload’ a page happens in parallel to the the rendering of next page. So in theory this should not affect the rendering of the next page. Below is a navigation graph from[ ](http://www.w3.org/TR/navigation-timing/)[*W3C*](http://www.w3.org/TR/navigation-timing/):
 
-![](media/image07.png)
+![](media/image03.png)
 
 Here it can be observed that ‘unload’ happens in parallel to the main request. So theoretically it should not affect the rendering of the next page you navigate to. But data and practical observation shows that there is a degradation. And since this is part of the above fold rendering, It is going have a significant user impact.
 
