@@ -23,7 +23,7 @@ The idea is to remove the heavy dom elements from the dom tree before navigating
 The theory is we make the page lightweight before unloading.
 -->
 <script>
-window.addEventListener(‘beforeunload’, function() {
+window.addEventListener('beforeunload', function() {
 	var iframeElements = Array.prototype.slice.call(document.getElementsByTagName(‘iframe’));
 	for (var i = 0, l = iframeElements.length; i < l; i++) {
 		iframeElements[i].parentNode.removeChild(iframeElements[i]);
