@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<title> Previous Page Load Tester </title>
+<style>
+#navigate{
+    background-color: #f1c350;
+    top: 0;
+    font-size: 21px;
+    left: 0;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+}
+</style>
+
+<!-- 
+When we navigate from a heavy page (with a lot of iFrames, video content etc.) to a normal page, the Time To First Render (TTFR) is surprisingly high especially in IE.
+While we wait for better optimizations from the browsers (IE especially) for this problem, There is an interesting trick to address the unload hypothesis that works well in IE.
+The idea is to remove the heavy dom elements from the dom tree before navigating (when onbeforeunload event is triggered).
+The theory is we make the page lightweight before unloading.
+-->
+<script>
+window.addEventListener(‘beforeunload’, function() {
+	var iframeElements = Array.prototype.slice.call(document.getElementsByTagName(‘iframe’));
+	for (var i = 0, l = iframeElements.length; i < l; i++) {
+		iframeElements[i].parentNode.removeChild(iframeElements[i]);
+	}
+});
+</script>
+</head>
+<body>
+
+<div id="navigate">
+<a id="normal_page_link" href="normal.html">Click to go to a normal page and check Time To First Render (TTFR)</a> 
+</div>
+<br>
+<br>
+<br>
+<br>
+<b style="font-size: 52px;">Heavy page </b>
+
+<br>
+<br>
+
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/1.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/2.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/3.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/4.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/5.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/6.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/7.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/8.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/9.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/10.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/11.html">
+</iframe>
+<iframe width="420" height="315"
+src="http://sembian-m.github.io/WebPerformance/iframes/12.html">
+</iframe>
+
+</body>
+</html>
+
