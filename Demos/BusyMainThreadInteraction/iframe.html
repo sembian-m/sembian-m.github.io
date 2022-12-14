@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<style>
+    /*div that contains the animation*/
+    div.anim-holder {
+        border: 1px solid;
+        height: 250px;
+        width: 250px;
+    }
+    /*Animation that keeps changing position and color*/
+    div.anim {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        opacity: 1;
+        position: relative;
+        animation-name: anim;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+    }
+    @keyframes anim {
+        0% {
+            background-color: red;
+            left: 0px;
+            top: 0px;
+        }
+        25% {
+            background-color: yellow;
+            left: 150px;
+            top: 0px;
+        }
+        50% {
+            background-color: blue;
+            left: 150px;
+            top: 150px;
+        }
+        75% {
+            background-color: green;
+            left: 0px;
+            top: 150px;
+        }
+        100% {
+            background-color: red;
+            left: 0px;
+            top: 0px;
+        }
+    }
+</style>
+<head>
+    <script>
+        var currentStyle = 'light';
+        function clicked(){
+            alert('I was clicked from child iframe');
+        }
+        function swapStyles(){
+            if(currentStyle === 'light'){
+                document.body.style.backgroundColor = "grey";
+                currentStyle = "dark"
+            }
+            else{
+                document.body.style.backgroundColor = "yellow";
+                currentStyle = 'light'
+            }
+        }
+        function parentInteractions(){
+            if(currentStyle === 'light'){
+                window.parent.document.body.style.backgroundColor = "grey";
+            }
+            else{
+                window.parent.document.body.style.backgroundColor = "yellow";
+                currentStyle = 'light'
+            }
+        }
+        function trackThis(){
+            fetch('http://example.com/movies.json');
+        }
+    </script>
+</head>
+
+<body>
+    <input type="date"></input>
+    <button onclick="clicked()">Click</button>
+    <button onclick="swapStyles()">Swap</button>
+    <button onclick="parentInteractions()">Parent</button>
+    <button onclick="trackThis()">Track</button>
+    <div id="container" class="anim-holder">
+        <div id="compcontainer" class="comp-container">
+            <div class="anim"></div>
+        </div>
+    </div> 
+
+</body>
+
+</html>
